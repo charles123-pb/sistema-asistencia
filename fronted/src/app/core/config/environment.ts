@@ -1,11 +1,12 @@
 /**
- * Desarrollo: `apiUrl` relativo + proxy en `angular.json` → el tráfico va a http://localhost:3001
- * (mismo puerto que `server.port` en backend/application.properties).
+ * Desarrollo: URL absoluta del API. Angular 21 + `ng serve` usa Vite y el proxy
+ * `proxy.conf.*` no reenvía las peticiones como antes; sin esto, `/api` pegaba al :4200 y fallaba.
+ *
+ * Mismo puerto que `server.port` en backend/application.properties (por defecto 3001).
  */
 export const environment = {
   production: false,
-  /** En dev, ng serve reenvía /api → backend (ver proxy.conf.json). */
-  apiUrl: '/api',
+  apiUrl: 'http://localhost:3001/api',
   apiTimeout: 30000,
 
   endpoints: {

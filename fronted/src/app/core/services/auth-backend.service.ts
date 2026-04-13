@@ -6,6 +6,16 @@ import { ApiService } from './api.service';
 import { AppUser } from '../models';
 import { environment } from '../config/environment';
 
+/** El API puede enviar el rol en distinto casing; Spring usa enum en minúsculas (admin, teacher). */
+export function normalizeAppUserRole(role: string | undefined | null): 'admin' | 'teacher' {
+  const r = String(role ?? '').toLowerCase();
+  return r === 'admin' ? 'admin' : 'teacher';
+}
+
+function mapUserFromApi(raw: AppUser): AppUser {
+  return { ...raw, role: normalizeAppUserRole(raw.role) } as AppUser;
+}
+
 interface LoginCredentials {
   userId: number;
   pin: string;
@@ -27,7 +37,7 @@ export class AuthServiceBackend {
   readonly currentUser = this._currentUser.asReadonly();
   readonly token = this._token.asReadonly();
   readonly isLoggedIn = computed(() => this._currentUser() !== null);
-  readonly isAdmin = computed(() => this._currentUser()?.role === 'admin');
+  readonly isAdmin = computed(() => normalizeAppUserRole(this._currentUser()?.role) === 'admin');
 
   /**
    * Inicializar sesión al cargar la aplicación (si existe token guardado)
@@ -41,7 +51,7 @@ export class AuthServiceBackend {
 
     return this.api.get<AppUser>(`${environment.endpoints.auth}/me`).pipe(
       tap((user) => {
-        this._currentUser.set(user);
+        this._currentUser.set(mapUserFromApi(user));
       }),
       catchError(() => {
         this._token.set(null);
@@ -58,12 +68,12 @@ export class AuthServiceBackend {
     const credentials: LoginCredentials = { userId, pin };
     return this.api.post<LoginResponse>(`${environment.endpoints.auth}/login`, credentials).pipe(
       tap((response) => {
+        const user = mapUserFromApi(response.user);
         this._token.set(response.token);
-        this._currentUser.set(response.user);
+        this._currentUser.set(user);
         localStorage.setItem('auth_token', response.token);
 
-        // Redirigir según rol
-        if (response.user.role === 'admin') {
+        if (user.role === 'admin') {
           this.router.navigate(['/admin']);
         } else {
           this.router.navigate(['/courses']);
@@ -91,7 +101,7 @@ export class AuthServiceBackend {
   refreshUser(): Observable<AppUser> {
     return this.api.get<AppUser>(`${environment.endpoints.auth}/me`).pipe(
       tap((user) => {
-        this._currentUser.set(user);
+        this._currentUser.set(mapUserFromApi(user));
       })
     );
   }

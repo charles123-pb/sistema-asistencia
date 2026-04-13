@@ -11,7 +11,7 @@ public class AuthDto {
     @Data
     public static class LoginRequest {
         @NotNull
-        @JsonAlias({"user_id", "userid"})
+        @JsonAlias({"user_id", "userid", "id"})
         private Long userId;
         @NotBlank
         private String pin;

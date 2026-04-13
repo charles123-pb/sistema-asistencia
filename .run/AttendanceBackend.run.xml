@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="AttendanceBackend (puerto 3001)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <option name="ENABLE_JMX_AGENT" value="false" />
+    <!-- Si el módulo no coincide con tu proyecto, en IntelliJ: Run → Edit Configurations → Module = el del backend -->
+    <module name="attendance-backend.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.attendance.AttendanceBackendApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+    <envs>
+      <env name="SERVER_PORT" value="3001" />
+    </envs>
+  </configuration>
+</component>
