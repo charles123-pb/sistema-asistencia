@@ -4,11 +4,8 @@ import { ApiService } from './api.service';
 import { Course, Session, Student, AttendanceValue, Justification } from '../models';
 import { environment } from '../config/environment';
 
-<<<<<<< HEAD
 type CreateCoursePayload = Pick<Course, 'name' | 'code' | 'sec' | 'sem' | 'credits' | 'minatt' | 'color' | 'icon' | 'desc'>;
 
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 /**
  * Servicio para gestionar datos del backend
  * Reemplaza DataService para usar API en lugar de mock
@@ -37,11 +34,7 @@ export class DataServiceBackend {
   /**
    * Crear un nuevo curso
    */
-<<<<<<< HEAD
   createCourse(course: CreateCoursePayload): Observable<Course> {
-=======
-  createCourse(course: Omit<Course, 'id'>): Observable<Course> {
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     return this.api.post<Course>(this.endpoints.courses, course);
   }
 
@@ -89,7 +82,6 @@ export class DataServiceBackend {
   }
 
   /**
-<<<<<<< HEAD
    * Actualizar un estudiante
    */
   updateStudent(
@@ -104,8 +96,6 @@ export class DataServiceBackend {
   }
 
   /**
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
    * Eliminar un estudiante
    */
   removeStudent(courseId: number, studentId: number): Observable<void> {
@@ -268,7 +258,6 @@ export class DataServiceBackend {
   getAllCourses(): Observable<Course[]> {
     return this.api.get<Course[]>(`${this.endpoints.admin}/courses`);
   }
-<<<<<<< HEAD
 
   // ==================== TEACHERS (DOCENTES) ====================
 
@@ -299,6 +288,4 @@ export class DataServiceBackend {
   deleteTeacher(teacherId: number): Observable<void> {
     return this.api.delete<void>(`${this.endpoints.admin}/teachers/${teacherId}`);
   }
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 }

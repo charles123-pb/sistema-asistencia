@@ -52,3 +52,6 @@ Thumbs.db
 *.bak
 server_old.js
 init.ps1
+
+# Maven (compilados; no subir a Git)
+backend/target/

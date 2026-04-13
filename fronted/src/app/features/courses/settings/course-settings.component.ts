@@ -1,36 +1,19 @@
-<<<<<<< HEAD
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-=======
-import { Component, Input, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import { DataServiceBackend } from '../../../core/services/data-backend.service';
 import { COLORS, Course } from '../../../core/models';
-=======
-import { AuthService } from '../../../core/services/auth.service';
-import { DataService } from '../../../core/services/data.service';
-import { COLORS, Course, Teacher } from '../../../core/models';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-course-settings',
   standalone: true,
-<<<<<<< HEAD
   imports: [FormsModule, MatInputModule, MatButtonModule, MatIconModule],
-=======
-  imports: [FormsModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule],
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   template: `
     <div class="p-7 max-w-2xl">
 
@@ -55,15 +38,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Semestre</mat-label>
-<<<<<<< HEAD
             <input matInput [(ngModel)]="form.sem" placeholder="2026-I">
-=======
-            <mat-select [(ngModel)]="form.sem">
-              <mat-option value="2025-I">2025-I</mat-option>
-              <mat-option value="2025-II">2025-II</mat-option>
-              <mat-option value="2024-II">2024-II</mat-option>
-            </mat-select>
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Créditos</mat-label>
@@ -115,14 +90,9 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
     </div>
   `
 })
-<<<<<<< HEAD
 export class CourseSettingsComponent implements OnInit, OnChanges {
   @Input({ required: true }) course!: Course;
   @Output() courseChanged = new EventEmitter<void>();
-=======
-export class CourseSettingsComponent implements OnInit {
-  @Input({ required: true }) course!: Course;
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   readonly colors = COLORS;
   readonly selectedColor = signal(0);
@@ -130,19 +100,13 @@ export class CourseSettingsComponent implements OnInit {
   form = { name: '', code: '', sec: '', sem: '', credits: 3, minatt: 70 };
 
   constructor(
-<<<<<<< HEAD
     private api: DataServiceBackend,
-=======
-    private auth: AuthService,
-    private data: DataService,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-<<<<<<< HEAD
     this.syncFromCourse();
   }
 
@@ -153,15 +117,12 @@ export class CourseSettingsComponent implements OnInit {
   }
 
   private syncFromCourse(): void {
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     const c = this.course;
     this.form = { name: c.name, code: c.code, sec: c.sec, sem: c.sem, credits: c.credits, minatt: c.minatt };
     this.selectedColor.set(c.color);
   }
 
   save(): void {
-<<<<<<< HEAD
     this.api.updateCourse(this.course.id, {
       ...this.form,
       color: this.selectedColor(),
@@ -172,15 +133,6 @@ export class CourseSettingsComponent implements OnInit {
       },
       error: (e) => this.snack.open(e?.message || 'Error al guardar', '', { duration: 3000 })
     });
-=======
-    const u = this.auth.currentUser() as Teacher;
-    this.data.updateCourse(u, this.course.id, {
-      ...this.form,
-      color: this.selectedColor(),
-    });
-    this.auth.refreshUser();
-    this.snack.open('Cambios guardados', '', { duration: 2000 });
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   }
 
   deleteCourse(): void {
@@ -188,7 +140,6 @@ export class CourseSettingsComponent implements OnInit {
       data: { title: 'Eliminar curso', message: `¿Eliminar "${this.course.name}"? Esta acción no se puede deshacer.`, confirmLabel: 'Eliminar', danger: true }
     }).afterClosed().subscribe(ok => {
       if (!ok) return;
-<<<<<<< HEAD
       this.api.deleteCourse(this.course.id).subscribe({
         next: () => {
           this.snack.open('Curso eliminado', '', { duration: 2000 });
@@ -199,13 +150,3 @@ export class CourseSettingsComponent implements OnInit {
     });
   }
 }
-=======
-      const u = this.auth.currentUser() as Teacher;
-      this.data.deleteCourse(u, this.course.id);
-      this.auth.refreshUser();
-      this.snack.open('Curso eliminado', '', { duration: 2000 });
-      this.router.navigate(['/courses']);
-    });
-  }
-}
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598

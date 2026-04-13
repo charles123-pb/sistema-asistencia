@@ -41,7 +41,13 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/app/core/config/environment.ts",
+                  "with": "src/app/core/config/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -53,6 +59,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": {
               "buildTarget": "fronted:build:production"

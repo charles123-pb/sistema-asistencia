@@ -1,10 +1,9 @@
 /**
- * Desarrollo: `apiUrl` relativo + proxy en `angular.json` → el tráfico va a http://localhost:3001
- * (mismo puerto que `server.port` en backend/application.properties).
+ * Producción: si el frontend y el API comparten el mismo dominio con /api detrás de un proxy,
+ * deja `apiUrl: '/api'`. Si el API está en otro host, pon aquí la URL completa (ej. https://api.tudominio.com/api).
  */
 export const environment = {
-  production: false,
-  /** En dev, ng serve reenvía /api → backend (ver proxy.conf.json). */
+  production: true,
   apiUrl: '/api',
   apiTimeout: 30000,
 
