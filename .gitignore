@@ -1,0 +1,54 @@
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+*.log
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+package-lock.json
+dist/
+build/
+
+# Angular
+.angular/
+.cache/
+.ng-build/
+
+# SQLite
+*.sqlite
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+env/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Windows
+Thumbs.db
+
+# Backup files
+*.orig
+*.bak
+server_old.js
+init.ps1
