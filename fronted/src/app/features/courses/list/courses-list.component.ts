@@ -9,10 +9,7 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap } from 'rxjs/operators';
 import { AuthServiceBackend } from '../../../core/services/auth-backend.service';
 import { DataServiceBackend } from '../../../core/services/data-backend.service';
-<<<<<<< HEAD
 import { DataService } from '../../../core/services/data.service';
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { AttRingComponent } from '../../../shared/components/att-ring/att-ring.component';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { COLORS, ICONS, Course } from '../../../core/models';
@@ -123,10 +120,7 @@ export class CoursesListComponent {
 
   private auth = inject(AuthServiceBackend);
   private data = inject(DataServiceBackend);
-<<<<<<< HEAD
   private dataUtil = inject(DataService);
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   private courses$ = toObservable(this.auth.currentUser).pipe(
     switchMap(() => this.data.getCourses())
@@ -143,13 +137,8 @@ export class CoursesListComponent {
 
   color(c: Course) { return COLORS[c.color ?? 0] ?? COLORS[0]; }
   icon(c: Course)  { return ICONS[c.icon ?? 0] ?? '📚'; }
-<<<<<<< HEAD
   avg(c: Course)   { return this.dataUtil.calcAvg(c); }
   attColor(c: Course) { return this.dataUtil.attColor(this.avg(c), c.minatt); }
-=======
-  avg(c: Course)   { return 0; }
-  attColor(c: Course) { return '#22c55e'; }
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   openCourse(id: number): void {
     this.router.navigate(['/courses', id]);

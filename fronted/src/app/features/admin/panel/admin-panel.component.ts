@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Component, computed, signal, OnInit, inject } from '@angular/core';
-=======
-import { Component, computed, signal } from '@angular/core';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -11,12 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-<<<<<<< HEAD
 import { DataServiceBackend } from '../../../core/services/data-backend.service';
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { DataService } from '../../../core/services/data.service';
-import { Teacher } from '../../../core/models';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -86,13 +78,6 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
                 <mat-label>Correo</mat-label>
                 <input matInput type="email" [(ngModel)]="tForm.email" placeholder="docente@uni.edu.pe">
               </mat-form-field>
-<<<<<<< HEAD
-=======
-              <mat-form-field appearance="outline" class="!w-full">
-                <mat-label>Departamento</mat-label>
-                <input matInput [(ngModel)]="tForm.dept" placeholder="Ej: Ingeniería">
-              </mat-form-field>
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
             </div>
             <div class="grid grid-cols-2 gap-3 mb-4">
               <mat-form-field appearance="outline" class="!w-full">
@@ -135,7 +120,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
                        [style.background]="avColor(i).bg" [style.color]="avColor(i).c">
                     {{ initials(t.name) }}
                   </div>
-                  
+
                   <!-- Info -->
                   <div class="flex-1">
                     <div class="flex items-center gap-2">
@@ -150,13 +135,6 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
                     </div>
                     <div class="text-xs text-[var(--text3)] mt-0.5">
                       <span>{{ t.email || 'Sin email' }}</span>
-<<<<<<< HEAD
-=======
-                      @if (t.dept) {
-                        <span class="mx-1">•</span>
-                        <span>{{ t.dept }}</span>
-                      }
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
                     </div>
                   </div>
                 </div>
@@ -189,7 +167,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
       display: block;
       background: var(--bg);
     }
-    
+
     .empty-state {
       display: flex;
       flex-direction: column;
@@ -208,17 +186,15 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
     }
   `]
 })
-<<<<<<< HEAD
 export class AdminPanelComponent implements OnInit {
   private dataBackend = inject(DataServiceBackend);
   private data = inject(DataService);
   private dialog = inject(MatDialog);
   private snack = inject(MatSnackBar);
 
-  // Local teacher list
   private teachersSignal = signal<any[]>([]);
   readonly teachers = this.teachersSignal.asReadonly();
-  
+
   readonly stats = computed(() => {
     const allTeachers = this.teachers();
     return {
@@ -226,7 +202,7 @@ export class AdminPanelComponent implements OnInit {
       total: allTeachers.length
     };
   });
-  
+
   showForm = signal(false);
   editingId = signal<number | null>(null);
   tForm = { first: '', last: '', email: '', pin: '', status: 'active' as 'active' | 'inactive' };
@@ -235,9 +211,6 @@ export class AdminPanelComponent implements OnInit {
     this.loadTeachers();
   }
 
-  /**
-   * Load teachers from backend
-   */
   loadTeachers(): void {
     this.dataBackend.getTeachers().subscribe({
       next: (teachers) => {
@@ -249,51 +222,23 @@ export class AdminPanelComponent implements OnInit {
       }
     });
   }
-=======
-export class AdminPanelComponent {
-
-  readonly stats = computed(() => this.data.adminStats() as { active: number; total: number });
-  readonly teachers = computed(() => this.data.data().teachers);
-  
-  showForm = signal(false);
-  editingId = signal<number | null>(null);
-  tForm = { first: '', last: '', email: '', dept: '', pin: '', status: 'active' as 'active' | 'inactive' };
-
-  constructor(
-    readonly data: DataService,
-    private dialog: MatDialog,
-    private snack: MatSnackBar
-  ) {}
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   avColor(i: number) { return this.data.getAvatarColors(i); }
   initials(n: string) { return this.data.getInitials(n); }
 
   openForm(): void {
-<<<<<<< HEAD
     this.tForm = { first: '', last: '', email: '', pin: '', status: 'active' };
-=======
-    this.tForm = { first: '', last: '', email: '', dept: '', pin: '', status: 'active' };
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     this.editingId.set(null);
     this.showForm.set(true);
   }
 
-<<<<<<< HEAD
   editTeacher(t: any): void {
-=======
-  editTeacher(t: Teacher): void {
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     const parts = t.name.split(' ');
     const half = Math.ceil(parts.length / 2);
     this.tForm = {
       first: parts.slice(0, half).join(' '),
       last: parts.slice(half).join(' '),
-<<<<<<< HEAD
       email: t.email ?? '',
-=======
-      email: t.email ?? '', dept: t.dept ?? '',
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
       pin: t.pin, status: t.status
     };
     this.editingId.set(t.id);
@@ -312,7 +257,6 @@ export class AdminPanelComponent {
     if (!/^\d{4}$/.test(this.tForm.pin)) {
       this.snack.open('PIN debe ser de 4 dígitos', '', { duration: 2500 }); return;
     }
-<<<<<<< HEAD
 
     const allTeachers = this.teachers();
     const pinExists = allTeachers.some(t => t.pin === this.tForm.pin && t.id !== this.editingId());
@@ -358,16 +302,16 @@ export class AdminPanelComponent {
   resetPin(t: any): void {
     const pin = prompt(`Nuevo PIN de 4 dígitos para ${t.name}:`);
     if (!pin) return;
-    if (!/^\d{4}$/.test(pin)) { 
-      this.snack.open('PIN inválido', '', { duration: 2500 }); 
-      return; 
+    if (!/^\d{4}$/.test(pin)) {
+      this.snack.open('PIN inválido', '', { duration: 2500 });
+      return;
     }
 
     const allTeachers = this.teachers();
     const pinExists = allTeachers.some(teacher => teacher.pin === pin && teacher.id !== t.id);
-    if (pinExists) { 
-      this.snack.open('PIN ya en uso', '', { duration: 2500 }); 
-      return; 
+    if (pinExists) {
+      this.snack.open('PIN ya en uso', '', { duration: 2500 });
+      return;
     }
 
     this.dataBackend.updateTeacher(t.id, { pin }).subscribe({
@@ -383,41 +327,10 @@ export class AdminPanelComponent {
   }
 
   deleteTeacher(t: any): void {
-=======
-    if (this.data.isPinTaken(this.tForm.pin, this.editingId() ?? undefined)) {
-      this.snack.open('Ese PIN ya está en uso', '', { duration: 2500 }); return;
-    }
-    const payload = {
-      name: `${this.tForm.first.trim()} ${this.tForm.last.trim()}`,
-      email: this.tForm.email, dept: this.tForm.dept,
-      pin: this.tForm.pin, status: this.tForm.status, role: 'teacher' as const
-    };
-    if (this.editingId()) {
-      this.data.updateTeacher(this.editingId()!, payload);
-      this.snack.open('Docente actualizado', '', { duration: 2000 });
-    } else {
-      this.data.addTeacher(payload);
-      this.snack.open('Docente agregado', '', { duration: 2000 });
-    }
-    this.cancelForm();
-  }
-
-  resetPin(t: Teacher): void {
-    const pin = prompt(`Nuevo PIN de 4 dígitos para ${t.name}:`);
-    if (!pin) return;
-    if (!/^\d{4}$/.test(pin)) { this.snack.open('PIN inválido', '', { duration: 2500 }); return; }
-    if (this.data.isPinTaken(pin, t.id)) { this.snack.open('PIN ya en uso', '', { duration: 2500 }); return; }
-    this.data.updateTeacher(t.id, { pin });
-    this.snack.open(`PIN de ${t.name} actualizado`, '', { duration: 2000 });
-  }
-
-  deleteTeacher(t: Teacher): void {
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     this.dialog.open(ConfirmDialogComponent, {
       data: { title: 'Eliminar docente', message: `¿Eliminar a "${t.name}"?`, confirmLabel: 'Eliminar', danger: true }
     }).afterClosed().subscribe(ok => {
       if (!ok) return;
-<<<<<<< HEAD
       this.dataBackend.deleteTeacher(t.id).subscribe({
         next: () => {
           this.snack.open('Docente eliminado', '', { duration: 2000 });
@@ -428,10 +341,6 @@ export class AdminPanelComponent {
           this.snack.open('Error al eliminar docente', '', { duration: 2500 });
         }
       });
-=======
-      this.data.deleteTeacher(t.id);
-      this.snack.open('Docente eliminado', '', { duration: 2000 });
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     });
   }
 }

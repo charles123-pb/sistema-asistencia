@@ -1,18 +1,14 @@
 /**
- * Configuración de ambiente para la aplicación
- * Cambiar la URL según el entorno (desarrollo, producción, etc.)
+ * Desarrollo: URL absoluta del API. Angular 21 + `ng serve` usa Vite y el proxy
+ * `proxy.conf.*` no reenvía las peticiones como antes; sin esto, `/api` pegaba al :4200 y fallaba.
+ *
+ * Mismo puerto que `server.port` en backend/application.properties (por defecto 3001).
  */
-
 export const environment = {
   production: false,
-<<<<<<< HEAD
   apiUrl: 'http://localhost:3001/api',
-=======
-  apiUrl: 'http://localhost:3000/api',
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
-  apiTimeout: 30000, // 30 segundos
-  
-  // Endpoints específicos (opcional, para mayor control)
+  apiTimeout: 30000,
+
   endpoints: {
     auth: '/auth',
     users: '/users',

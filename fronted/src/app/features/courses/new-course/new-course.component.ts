@@ -2,31 +2,16 @@ import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-<<<<<<< HEAD
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthServiceBackend } from '../../../core/services/auth-backend.service';
 import { DataServiceBackend } from '../../../core/services/data-backend.service';
 import { COLORS } from '../../../core/models';
-=======
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { AuthService } from '../../../core/services/auth.service';
-import { DataService } from '../../../core/services/data.service';
-import { COLORS, Teacher } from '../../../core/models';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
 @Component({
   selector: 'app-new-course',
   standalone: true,
-<<<<<<< HEAD
   imports: [FormsModule, MatInputModule, MatButtonModule, MatIconModule],
-=======
-  imports: [FormsModule, MatInputModule, MatSelectModule, MatButtonModule, MatIconModule],
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   template: `
     <div class="p-7 pb-10 fade-in max-w-2xl">
 
@@ -60,31 +45,18 @@ import { COLORS, Teacher } from '../../../core/models';
         </div>
 
         <!-- Sec + Sem + Credits -->
-<<<<<<< HEAD
         <div class="grid grid-cols-4 gap-4 mb-4">
-=======
-        <div class="grid grid-cols-3 gap-4 mb-4">
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
           <mat-form-field appearance="outline">
             <mat-label>Sección</mat-label>
             <input matInput [(ngModel)]="form.sec" placeholder="A">
           </mat-form-field>
           <mat-form-field appearance="outline">
-<<<<<<< HEAD
             <mat-label>Año</mat-label>
             <input matInput [(ngModel)]="form.semYear" placeholder="2026">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Semestre</mat-label>
             <input matInput [(ngModel)]="form.semTerm" placeholder="I, II, Verano...">
-=======
-            <mat-label>Semestre</mat-label>
-            <mat-select [(ngModel)]="form.sem">
-              <mat-option value="2025-I">2025-I</mat-option>
-              <mat-option value="2025-II">2025-II</mat-option>
-              <mat-option value="2024-II">2024-II</mat-option>
-            </mat-select>
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>Créditos</mat-label>
@@ -145,23 +117,13 @@ export class NewCourseComponent {
   readonly selectedColor = signal(0);
 
   form = {
-<<<<<<< HEAD
     name: '', code: '', sec: 'A', semYear: '2026', semTerm: 'I', credits: 3,
-=======
-    name: '', code: '', sec: 'A', sem: '2025-I', credits: 3,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     minatt: 70, desc: ''
   };
 
   constructor(
     readonly router: Router,
-<<<<<<< HEAD
-    private auth: AuthServiceBackend,
     private data: DataServiceBackend,
-=======
-    private auth: AuthService,
-    private data: DataService,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     private snack: MatSnackBar
   ) {}
 
@@ -170,26 +132,16 @@ export class NewCourseComponent {
       this.snack.open('El nombre del curso es requerido', '', { duration: 2500 });
       return;
     }
-<<<<<<< HEAD
     this.data.createCourse({
       name: this.form.name.trim(),
       code: this.form.code || 'SIN-COD',
       sec: this.form.sec || 'A',
       sem: this.buildSemester(),
-=======
-    const u = this.auth.currentUser() as Teacher;
-    this.data.createCourse(u, {
-      name: this.form.name.trim(),
-      code: this.form.code || 'SIN-COD',
-      sec: this.form.sec || 'A',
-      sem: this.form.sem,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
       credits: this.form.credits || 3,
       minatt: this.form.minatt,
       color: this.selectedColor(),
       icon: Math.floor(Math.random() * 10),
       desc: this.form.desc,
-<<<<<<< HEAD
     }).subscribe({
       next: () => {
         this.snack.open('Curso creado exitosamente', '', { duration: 2500 });
@@ -209,11 +161,5 @@ export class NewCourseComponent {
     if (!year) return term;
     if (!term) return year;
     return `${year}-${term}`;
-=======
-    });
-    this.auth.refreshUser();
-    this.snack.open('Curso creado exitosamente', '', { duration: 2500 });
-    this.router.navigate(['/courses']);
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   }
 }

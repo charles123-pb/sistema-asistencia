@@ -1,22 +1,12 @@
-<<<<<<< HEAD
 import { Component, Input, computed } from '@angular/core';
-=======
-import { Component, Input, signal, computed } from '@angular/core';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { FormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { DataService } from '../../../core/services/data.service';
-<<<<<<< HEAD
 import { Course, AttendanceValue } from '../../../core/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { attKey } from '../../../core/utils/attendance-keys';
-=======
-import { AuthService } from '../../../core/services/auth.service';
-import { Course, AttendanceValue, Teacher } from '../../../core/models';
-import { MatSnackBar } from '@angular/material/snack-bar';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
 interface HistoryRow {
   session: string;
@@ -88,11 +78,7 @@ interface HistoryRow {
             <div>Fecha</div>
             <div>Estado</div>
           </div>
-<<<<<<< HEAD
           @for (r of rows(); track r.session + r.student + r.date) {
-=======
-          @for (r of rows(); track r.session + r.student) {
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
             <div class="grid grid-cols-[2fr_2fr_1.5fr_1fr] gap-3 px-4 py-3
                         border-b border-[var(--border)] last:border-0
                         hover:bg-[var(--surface2)] transition-colors text-sm">
@@ -124,11 +110,7 @@ export class HistoryTabComponent {
     this.course.sessions.forEach(s =>
       this.course.students.forEach(st => {
         if (this.filterStu !== '' && st.id !== this.filterStu) return;
-<<<<<<< HEAD
         const key = attKey(st.id, s.id);
-=======
-        const key = `${s.id}::${st.id}`;
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
         const v = (this.course.att[key] ?? 'p') as AttendanceValue;
         if (this.filterStatus && v !== this.filterStatus) return;
         const just = this.course.justifications[key];
@@ -140,25 +122,14 @@ export class HistoryTabComponent {
 
   constructor(
     readonly data: DataService,
-<<<<<<< HEAD
-=======
-    private auth: AuthService,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     private snack: MatSnackBar
   ) {}
 
   badgeClass(v: AttendanceValue): string {
-<<<<<<< HEAD
     return v === 'p' ? 'att-badge-p' : v === 't' ? 'att-badge-t' : v === 'a' ? 'att-badge-a' : 'att-badge-j';
   }
   label(v: AttendanceValue): string {
     return v === 'p' ? 'Presente' : v === 't' ? 'Tardanza' : v === 'a' ? 'Ausente' : 'Justificado';
-=======
-    return v === 'p' ? 'att-badge-p' : v === 't' ? 'att-badge-t' : 'att-badge-a';
-  }
-  label(v: AttendanceValue): string {
-    return v === 'p' ? 'Presente' : v === 't' ? 'Tardanza' : 'Ausente';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   }
 
   exportCSV(): void {
@@ -167,11 +138,7 @@ export class HistoryTabComponent {
     const dataRows: string[][] = [];
     c.sessions.forEach(s => c.students.forEach(st => {
       if (this.filterStu !== '' && st.id !== Number(this.filterStu)) return;
-<<<<<<< HEAD
       const key = attKey(st.id, s.id);
-=======
-      const key = `${s.id}::${st.id}`;
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
       const v = (c.att[key] ?? 'p') as AttendanceValue;
       if (this.filterStatus && v !== this.filterStatus) return;
       const just = c.justifications[key];

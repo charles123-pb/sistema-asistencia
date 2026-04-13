@@ -1,23 +1,13 @@
-<<<<<<< HEAD
 import { Component, OnDestroy, OnInit, signal } from '@angular/core';
-=======
-import { Component, computed, signal, OnInit } from '@angular/core';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
-<<<<<<< HEAD
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../core/services/data.service';
 import { DataServiceBackend } from '../../../core/services/data-backend.service';
 import { Course, COLORS, ICONS } from '../../../core/models';
-=======
-import { AuthService } from '../../../core/services/auth.service';
-import { DataService } from '../../../core/services/data.service';
-import { Course, Teacher, COLORS, ICONS } from '../../../core/models';
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { SessionsTabComponent } from '../../sessions/attendance/sessions-tab.component';
 import { StudentsTabComponent } from '../../students/list/students-tab.component';
 import { HistoryTabComponent } from '../../sessions/attendance/history-tab.component';
@@ -87,7 +77,6 @@ import { CourseSettingsComponent } from '../settings/course-settings.component';
         </div>
 
         <!-- Tabs -->
-<<<<<<< HEAD
         <mat-tab-group [(selectedIndex)]="selectedTabIndex"
                        class="course-tabs"
                        animationDuration="150ms">
@@ -96,39 +85,20 @@ import { CourseSettingsComponent } from '../settings/course-settings.component';
           </mat-tab>
           <mat-tab label="Estudiantes">
             <app-students-tab [course]="course()!" (courseChanged)="reloadCourse()" />
-=======
-        <mat-tab-group [(selectedIndex)]="selectedTab"
-                       class="course-tabs"
-                       animationDuration="150ms">
-          <mat-tab label="Sesiones">
-            <app-sessions-tab [course]="course()!" />
-          </mat-tab>
-          <mat-tab label="Estudiantes">
-            <app-students-tab [course]="course()!" />
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
           </mat-tab>
           <mat-tab label="Historial">
             <app-history-tab [course]="course()!" />
           </mat-tab>
           <mat-tab label="Configuración">
-<<<<<<< HEAD
             <app-course-settings [course]="course()!" (courseChanged)="reloadCourse()" />
-=======
-            <app-course-settings [course]="course()!" />
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
           </mat-tab>
         </mat-tab-group>
 
       </div>
-<<<<<<< HEAD
     } @else if (loadError()) {
       <div class="p-7 text-[var(--text3)]">{{ loadError() }}</div>
     } @else {
       <div class="p-7 text-[var(--text3)]">Cargando…</div>
-=======
-    } @else {
-      <div class="p-7 text-[var(--text3)]">Curso no encontrado</div>
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     }
   `,
   styles: [`
@@ -142,7 +112,6 @@ import { CourseSettingsComponent } from '../settings/course-settings.component';
     }
   `]
 })
-<<<<<<< HEAD
 export class CourseDetailComponent implements OnInit, OnDestroy {
 
   readonly course = signal<Course | undefined>(undefined);
@@ -152,35 +121,16 @@ export class CourseDetailComponent implements OnInit, OnDestroy {
 
   private courseId = 0;
   private sub = new Subscription();
-=======
-export class CourseDetailComponent implements OnInit {
-
-  selectedTab = signal(0);
-
-  readonly course = computed<Course | undefined>(() => {
-    const u = this.auth.currentUser() as Teacher;
-    if (!u) return undefined;
-    return u.courses.find(c => c.id === this.courseId);
-  });
-
-  private courseId = 0;
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   constructor(
     readonly router: Router,
     private route: ActivatedRoute,
-<<<<<<< HEAD
     readonly data: DataService,
     private dataBackend: DataServiceBackend,
-=======
-    readonly auth: AuthService,
-    readonly data: DataService,
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     private snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-<<<<<<< HEAD
     this.sub.add(
       this.route.paramMap.subscribe(params => {
         this.courseId = Number(params.get('id'));
@@ -204,7 +154,6 @@ export class CourseDetailComponent implements OnInit {
     }
   }
 
-  /** Recarga el curso desde la API (tras cambios en sesiones, alumnos, etc.) */
   reloadCourse(): void {
     if (!this.courseId || Number.isNaN(this.courseId)) return;
     this.dataBackend.getCourse(this.courseId).subscribe({
@@ -245,7 +194,6 @@ export class CourseDetailComponent implements OnInit {
     });
   }
 
-  /** Asegura arrays/objetos por si la API devuelve null en listas anidadas */
   private normalizeCourse(c: Course): Course {
     return {
       ...c,
@@ -254,11 +202,6 @@ export class CourseDetailComponent implements OnInit {
       att: c.att ?? {},
       justifications: c.justifications ?? {}
     };
-=======
-    this.courseId = Number(this.route.snapshot.paramMap.get('id'));
-    const tab = this.route.snapshot.queryParamMap.get('tab');
-    if (tab === 'settings') this.selectedTab.set(3);
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   }
 
   color()  { const c = this.course(); return c ? (COLORS[c.color] ?? COLORS[0]) : COLORS[0]; }

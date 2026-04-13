@@ -1,16 +1,13 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { AttendanceValue, AV_COLORS, AV_TEXTS, Course, Teacher, AppUser, Student, Session, Justification, AppData } from '../models';
-<<<<<<< HEAD
 import { calcAvg as calcAvgUtil, calcStuPctFor as calcStuPctForUtil } from '../utils/attendance-keys';
-=======
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
 /**
  * Servicio de utilidades para la aplicación
  * - Formateo de datos
  * - Cálculos básicos
  * - Colores y estilos
- * 
+ *
  * NOTA: Para cambios persistentes, usar DataServiceBackend que consume la API
  * Este servicio solo proporciona funciones de UI y compatibilidad
  */
@@ -45,7 +42,6 @@ export class DataService {
   addTeacher(...args: any[]): void { }
   updateTeacher(...args: any[]): void { }
   deleteTeacher(...args: any[]): void { }
-<<<<<<< HEAD
   calcAvg(course: Course): number {
     return calcAvgUtil(course);
   }
@@ -53,10 +49,6 @@ export class DataService {
   calcStuPctFor(course: Course, studentId: number): number {
     return calcStuPctForUtil(course, studentId);
   }
-=======
-  calcAvg(...args: any[]): number { return 0; }
-  calcStuPctFor(...args: any[]): number { return 0; }
->>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   buildAlerts(...args: any[]): any[] { return []; }
   isPinTaken(...args: any[]): boolean { return false; }
 
@@ -244,4 +236,3 @@ export class DataService {
     });
   }
 }
-
