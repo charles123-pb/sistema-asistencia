@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { Component, EventEmitter, Input, Output, computed, signal } from '@angular/core';
+=======
 import { Component, Input, signal, computed } from '@angular/core';
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,9 +11,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+<<<<<<< HEAD
+import { DataService } from '../../../core/services/data.service';
+import { DataServiceBackend } from '../../../core/services/data-backend.service';
+import { Course, Session, AttendanceValue } from '../../../core/models';
+import { attKey } from '../../../core/utils/attendance-keys';
+=======
 import { AuthService } from '../../../core/services/auth.service';
 import { DataService } from '../../../core/services/data.service';
 import { Course, Session, AttendanceValue, Teacher } from '../../../core/models';
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { JustifyDialogComponent } from '../new-session/justify-dialog.component';
 import { SessionDialogComponent } from '../new-session/session-dialog.component';
@@ -167,6 +178,10 @@ import { SessionDialogComponent } from '../new-session/session-dialog.component'
 })
 export class SessionsTabComponent {
   @Input({ required: true }) course!: Course;
+<<<<<<< HEAD
+  @Output() courseChanged = new EventEmitter<void>();
+=======
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
 
   readonly comp = signal<'t' | 'p'>('t');
   readonly openSessionId = signal<number | null>(null);
@@ -184,7 +199,11 @@ export class SessionsTabComponent {
 
   constructor(
     readonly data: DataService,
+<<<<<<< HEAD
+    private api: DataServiceBackend,
+=======
     private auth: AuthService,
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     private dialog: MatDialog,
     private snack: MatSnackBar
   ) {}
@@ -194,6 +213,21 @@ export class SessionsTabComponent {
   }
 
   getAtt(sessId: number, stuId: number): AttendanceValue {
+<<<<<<< HEAD
+    const k = attKey(stuId, sessId);
+    return (this.course.att[k] ?? 'p') as AttendanceValue;
+  }
+
+  hasJust(sessId: number, stuId: number): boolean {
+    return !!this.course.justifications[attKey(stuId, sessId)];
+  }
+
+  setAtt(sessId: number, stuId: number, v: AttendanceValue): void {
+    if (v === 'j') {
+      const st = this.course.students.find(s => s.id === stuId)!;
+      const sess = this.course.sessions.find(s => s.id === sessId)!;
+      const existing = this.course.justifications[attKey(stuId, sessId)];
+=======
     return (this.course.att[`${sessId}::${stuId}`] ?? 'p') as AttendanceValue;
   }
 
@@ -207,10 +241,34 @@ export class SessionsTabComponent {
       const st = this.course.students.find(s => s.id === stuId)!;
       const sess = this.course.sessions.find(s => s.id === sessId)!;
       const existing = this.course.justifications[key];
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
       this.dialog.open(JustifyDialogComponent, {
         data: { studentName: st.name, sessionName: sess.name, existing }
       }).afterClosed().subscribe(result => {
         if (!result) return;
+<<<<<<< HEAD
+        this.api.recordAttendance(this.course.id, stuId, sessId, 'j').subscribe({
+          next: () => {
+            this.api.addJustification(this.course.id, stuId, sessId, result).subscribe({
+              next: () => {
+                this.courseChanged.emit();
+                this.snack.open('Justificación registrada', '', { duration: 2000 });
+              },
+              error: (e) => this.snack.open(e?.message || 'Error al guardar justificación', '', { duration: 3000 })
+            });
+          },
+          error: (e) => this.snack.open(e?.message || 'Error al registrar asistencia', '', { duration: 3000 })
+        });
+      });
+      return;
+    }
+    this.api.recordAttendance(this.course.id, stuId, sessId, v).subscribe({
+      next: () => {
+        this.courseChanged.emit();
+      },
+      error: (e) => this.snack.open(e?.message || 'No se pudo guardar', '', { duration: 3000 })
+    });
+=======
         const u = this.auth.currentUser() as Teacher;
         this.data.saveJustification(u, this.course.id, key, result);
         this.auth.refreshUser();
@@ -220,6 +278,7 @@ export class SessionsTabComponent {
     const u = this.auth.currentUser() as Teacher;
     this.data.setAttendance(u, this.course.id, key, v);
     this.auth.refreshUser();
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
   }
 
   stuPct(stuId: number): number {
@@ -242,15 +301,49 @@ export class SessionsTabComponent {
       data: { comp: this.comp(), mode: 'create' }
     }).afterClosed().subscribe(result => {
       if (!result) return;
+<<<<<<< HEAD
+      this.api.createSession(this.course.id, {
+        name: result.name,
+        date: result.date,
+        time: result.time,
+        type: result.type,
+        comp: result.comp
+      }).subscribe({
+        next: () => {
+          this.courseChanged.emit();
+          this.snack.open('Grupo creado', '', { duration: 2000 });
+        },
+        error: (e) => this.snack.open(e?.message || 'Error al crear grupo', '', { duration: 3000 })
+      });
+=======
       const u = this.auth.currentUser() as Teacher;
       this.data.createSession(u, this.course.id, result);
       this.auth.refreshUser();
       this.snack.open('Grupo creado', '', { duration: 2000 });
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     });
   }
 
   editSession(s: Session): void {
     this.dialog.open(SessionDialogComponent, {
+<<<<<<< HEAD
+      data: { comp: (s.comp as 't' | 'p') || 't', mode: 'edit', session: s }
+    }).afterClosed().subscribe(result => {
+      if (!result) return;
+      this.api.updateSession(this.course.id, s.id, {
+        name: result.name,
+        date: result.date,
+        time: result.time,
+        type: result.type,
+        comp: result.comp
+      }).subscribe({
+        next: () => {
+          this.courseChanged.emit();
+          this.snack.open('Grupo actualizado', '', { duration: 2000 });
+        },
+        error: (e) => this.snack.open(e?.message || 'Error al actualizar', '', { duration: 3000 })
+      });
+=======
       data: { comp: this.comp(), mode: 'edit', session: s }
     }).afterClosed().subscribe(result => {
       if (!result) return;
@@ -258,6 +351,7 @@ export class SessionsTabComponent {
       this.data.updateSession(u, this.course.id, s.id, result);
       this.auth.refreshUser();
       this.snack.open('Grupo actualizado', '', { duration: 2000 });
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     });
   }
 
@@ -266,10 +360,20 @@ export class SessionsTabComponent {
       data: { title: 'Eliminar grupo', message: `¿Eliminar "${s.name}"?`, confirmLabel: 'Eliminar', danger: true }
     }).afterClosed().subscribe(ok => {
       if (!ok) return;
+<<<<<<< HEAD
+      this.api.deleteSession(this.course.id, s.id).subscribe({
+        next: () => {
+          this.courseChanged.emit();
+          this.snack.open('Grupo eliminado', '', { duration: 2000 });
+        },
+        error: (e) => this.snack.open(e?.message || 'Error al eliminar', '', { duration: 3000 })
+      });
+=======
       const u = this.auth.currentUser() as Teacher;
       this.data.deleteSession(u, this.course.id, s.id);
       this.auth.refreshUser();
       this.snack.open('Grupo eliminado', '', { duration: 2000 });
+>>>>>>> 19a6882794dac5f16f97657b3e0ff2dd323ec598
     });
   }
 }
