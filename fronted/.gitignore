@@ -1,0 +1,101 @@
+<<<<<<< HEAD
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.history/*
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+__screenshots__/
+
+# System files
+.DS_Store
+Thumbs.db
+=======
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+*.log
+*.swp
+*.swo
+*~
+
+# Node
+node_modules/
+package-lock.json
+dist/
+build/
+
+# Angular
+.angular/
+.cache/
+.ng-build/
+
+# SQLite
+*.sqlite
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+venv/
+env/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Windows
+Thumbs.db
+
+# Backup files
+*.orig
+*.bak
+server_old.js
+init.ps1
+>>>>>>> e330c00cfb12a3b66a87603a987c0fa7a6adf8e3

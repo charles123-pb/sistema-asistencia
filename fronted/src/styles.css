@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'tailwindcss';
+
+/* Custom CSS Variables for Light Mode */
+:root {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface2: #F7F8FC;
+  --border: #E4E6EF;
+  --border2: #D1D5E8;
+  --text1: #0F1120;
+  --text2: #4A4F6A;
+  --text3: #8B92B9;
+  --accent: #3B5BDB;
+  --accent-bg: #EEF2FF;
+  --amber: #F59E0B;
+  --amber-bg: #FFFBEB;
+}
+
+/* Dark Mode Variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161928;
+    --surface: #161928;
+    --surface2: #1C2035;
+    --border: #272B42;
+    --border2: #333858;
+    --text1: #F3F5FF;
+    --text2: #D5DAF0;
+    --text3: #989FB5;
+    --accent: #5B7BFF;
+    --accent-bg: #1A2240;
+    --amber: #FBBF24;
+    --amber-bg: #460F00;
+  }
+}
+
+/* Dark mode class override */
+.dark {
+  --bg: #161928;
+  --surface: #161928;
+  --surface2: #1C2035;
+  --border: #272B42;
+  --border2: #333858;
+  --text1: #F3F5FF;
+  --text2: #D5DAF0;
+  --text3: #989FB5;
+  --accent: #5B7BFF;
+  --accent-bg: #1A2240;
+  --amber: #FBBF24;
+  --amber-bg: #460F00;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
