@@ -51,6 +51,13 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
         </div>
       </div>
 
+      <!-- Admin info -->
+      <div class="border border-[var(--amber)] rounded-app p-4 mb-6">
+        <div class="font-bold">Administrador</div>
+        <div class="text-xs">admin@universidad.edu</div>
+        <h1 class="text-2xl font-bold mt-1">0000</h1>
+      </div>
+
       <!-- Main content -->
       <div class="bg-[var(--surface)] border border-[var(--border)] rounded-app shadow-app overflow-hidden">
 
@@ -133,15 +140,13 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
                         {{ t.status === 'active' ? 'Activo' : 'Inactivo' }}
                       </span>
                     </div>
-                    <div class="text-xs text-[var(--text3)] mt-0.5">
-                      <span>{{ t.email || 'Sin email' }}</span>
-                    </div>
+                    <h1 class="text-lg font-bold mt-0.5">{{ t.pinDisplay }}</h1>
                   </div>
                 </div>
 
                 <!-- Actions -->
                 <div class="flex gap-1 ml-4">
-                  <button mat-icon-button class="!w-9 !h-9 text-[var(--text2)]" [matTooltip]="'PIN: ' + t.pin"
+                  <button mat-icon-button class="!w-9 !h-9 text-[var(--text2)]" [matTooltip]="'PIN: ' + t.pinDisplay"
                           (click)="editTeacher(t)">
                     <mat-icon class="!text-lg">edit</mat-icon>
                   </button>
@@ -259,7 +264,7 @@ export class AdminPanelComponent implements OnInit {
     }
 
     const allTeachers = this.teachers();
-    const pinExists = allTeachers.some(t => t.pin === this.tForm.pin && t.id !== this.editingId());
+    const pinExists = allTeachers.some(t => t.pinDisplay === this.tForm.pin && t.id !== this.editingId());
     if (pinExists) {
       this.snack.open('Ese PIN ya está en uso', '', { duration: 2500 }); return;
     }
@@ -308,7 +313,7 @@ export class AdminPanelComponent implements OnInit {
     }
 
     const allTeachers = this.teachers();
-    const pinExists = allTeachers.some(teacher => teacher.pin === pin && teacher.id !== t.id);
+    const pinExists = allTeachers.some(teacher => teacher.pinDisplay === pin && teacher.id !== t.id);
     if (pinExists) {
       this.snack.open('PIN ya en uso', '', { duration: 2500 });
       return;

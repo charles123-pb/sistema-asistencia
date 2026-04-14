@@ -24,6 +24,9 @@ public class User {
     @Column(nullable = false)
     private String pin; // En producción: hash BCrypt
 
+    @Transient
+    private String pinDisplay; // PIN plano para mostrar en frontend
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status;

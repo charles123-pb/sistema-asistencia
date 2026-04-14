@@ -43,6 +43,7 @@ public class DataInitializer implements CommandLineRunner {
                 .name("Administrador")
                 .email(adminEmail)
                 .pin(passwordEncoder.encode(adminPin))
+                .pinDisplay(adminPin)
                 .status(User.UserStatus.active)
                 .role(User.UserRole.admin)
                 .build();
@@ -54,6 +55,7 @@ public class DataInitializer implements CommandLineRunner {
                     .email("jperez@universidad.edu")
                     .dept("Ingeniería de Sistemas")
                     .pin(passwordEncoder.encode("5678"))
+                    .pinDisplay("5678")
                     .status(User.UserStatus.active)
                     .role(User.UserRole.teacher)
                     .build();
@@ -110,6 +112,20 @@ public class DataInitializer implements CommandLineRunner {
                     .email("mariana.rojas@uni.edu")
                     .course(c2)
                     .build());
+
+            // Más estudiantes para Programación I
+            studentRepository.save(Student.builder().name("Carlos Mendoza").code("2026-003").sem("2026-I").email("carlos.mendoza@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Diana Flores").code("2026-004").sem("2026-I").email("diana.flores@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Eduardo Ruiz").code("2026-005").sem("2026-I").email("eduardo.ruiz@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Fernanda Castro").code("2026-006").sem("2026-I").email("fernanda.castro@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Gabriel López").code("2026-007").sem("2026-I").email("gabriel.lopez@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Hugo Sánchez").code("2026-008").sem("2026-I").email("hugo.sanchez@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("Isabel Rivera").code("2026-009").sem("2026-I").email("isabel.rivera@uni.edu").course(c1).build());
+            studentRepository.save(Student.builder().name("José Paredes").code("2026-010").sem("2026-I").email("jose.paredes@uni.edu").course(c1).build());
+
+            // Más estudiantes para Base de Datos
+            studentRepository.save(Student.builder().name("Karen Delgado").code("2026-102").sem("2026-II").email("karen.delgado@uni.edu").course(c2).build());
+            studentRepository.save(Student.builder().name("Luis Fernando Torres").code("2026-103").sem("2026-II").email("luis.torres@uni.edu").course(c2).build());
 
             // Sesiones de prueba (teoría + práctica en Programación I; teoría en Base de datos)
             Session c1Teoria = sessionRepository.save(Session.builder()

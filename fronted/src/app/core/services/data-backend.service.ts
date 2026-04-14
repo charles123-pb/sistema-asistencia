@@ -4,8 +4,6 @@ import { ApiService } from './api.service';
 import { Course, Session, Student, AttendanceValue, Justification } from '../models';
 import { environment } from '../config/environment';
 
-type CreateCoursePayload = Pick<Course, 'name' | 'code' | 'sec' | 'sem' | 'credits' | 'minatt' | 'color' | 'icon' | 'desc'>;
-
 /**
  * Servicio para gestionar datos del backend
  * Reemplaza DataService para usar API en lugar de mock
@@ -34,7 +32,7 @@ export class DataServiceBackend {
   /**
    * Crear un nuevo curso
    */
-  createCourse(course: CreateCoursePayload): Observable<Course> {
+  createCourse(course: Omit<Course, 'id'>): Observable<Course> {
     return this.api.post<Course>(this.endpoints.courses, course);
   }
 
@@ -82,25 +80,21 @@ export class DataServiceBackend {
   }
 
   /**
-   * Actualizar un estudiante
-   */
-  updateStudent(
-    courseId: number,
-    studentId: number,
-    student: Partial<Pick<Student, 'name' | 'code' | 'sem' | 'email'>>
-  ): Observable<Student> {
-    return this.api.put<Student>(
-      `${this.endpoints.courses}/${courseId}${this.endpoints.students}/${studentId}`,
-      student
-    );
-  }
-
-  /**
    * Eliminar un estudiante
    */
   removeStudent(courseId: number, studentId: number): Observable<void> {
     return this.api.delete<void>(
       `${this.endpoints.courses}/${courseId}${this.endpoints.students}/${studentId}`
+    );
+  }
+
+  /**
+   * Actualizar un estudiante
+   */
+  updateStudent(courseId: number, studentId: number, student: Partial<Student>): Observable<Student> {
+    return this.api.put<Student>(
+      `${this.endpoints.courses}/${courseId}${this.endpoints.students}/${studentId}`,
+      student
     );
   }
 

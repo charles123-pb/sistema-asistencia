@@ -63,6 +63,7 @@ public class AdminService {
                 .email(req.getEmail())
                 .dept(req.getDept())
                 .pin(passwordEncoder.encode(req.getPin()))
+                .pinDisplay(req.getPin())
                 .status(User.UserStatus.valueOf(req.getStatus() != null ? req.getStatus() : "active"))
                 .role(User.UserRole.teacher)
                 .build();
@@ -76,7 +77,10 @@ public class AdminService {
         if (req.getName() != null) teacher.setName(req.getName());
         if (req.getEmail() != null) teacher.setEmail(req.getEmail());
         if (req.getDept() != null) teacher.setDept(req.getDept());
-        if (req.getPin() != null) teacher.setPin(passwordEncoder.encode(req.getPin()));
+        if (req.getPin() != null) {
+            teacher.setPin(passwordEncoder.encode(req.getPin()));
+            teacher.setPinDisplay(req.getPin());
+        }
         if (req.getStatus() != null) teacher.setStatus(User.UserStatus.valueOf(req.getStatus()));
         return UserDto.UserResponse.from(userRepo.save(teacher));
     }

@@ -14,6 +14,7 @@ public class UserDto {
         private String email;
         private String dept;
         private String pin;
+        private String pinDisplay;
         private String status;
         private String role;
         private List<CourseDto.CourseResponse> courses;
@@ -25,6 +26,7 @@ public class UserDto {
             r.email = u.getEmail();
             r.dept = u.getDept();
             r.pin = u.getPin();
+            r.pinDisplay = u.getPinDisplay();
             r.status = u.getStatus().name();
             r.role = u.getRole().name();
             r.courses = List.of(); // se llena en el servicio si hace falta

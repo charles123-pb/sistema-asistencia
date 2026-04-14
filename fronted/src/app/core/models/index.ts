@@ -45,6 +45,7 @@ export interface Teacher {
   email?: string;
   dept?: string;
   pin: string;
+  pinDisplay?: string;
   status: 'active' | 'inactive';
   role: 'teacher';
   courses: Course[];
@@ -56,6 +57,7 @@ export interface Admin {
   email?: string;
   dept?: string;
   pin: string;
+  pinDisplay?: string;
   status: 'active';
   role: 'admin';
   courses: Course[];
