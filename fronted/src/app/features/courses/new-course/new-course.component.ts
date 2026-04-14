@@ -142,6 +142,10 @@ export class NewCourseComponent {
       color: this.selectedColor(),
       icon: Math.floor(Math.random() * 10),
       desc: this.form.desc,
+      students: [],
+      sessions: [],
+      att: {},
+      justifications: {},
     }).subscribe({
       next: () => {
         this.snack.open('Curso creado exitosamente', '', { duration: 2500 });

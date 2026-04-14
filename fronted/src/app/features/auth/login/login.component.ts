@@ -45,7 +45,7 @@ import { ApiService } from '../../../core/services/api.service';
             @for (u of allUsers(); track u.id) {
               <button
                 (click)="selectUser(u)"
-                class="flex flex-col items-center gap-2 p-4 rounded-app border-2 border-[var(--border)]
+                class="flex flex-col items-center gap-1 p-4 rounded-app border-2 border-[var(--border)]
                        bg-[var(--surface)] hover:border-[var(--accent)] hover:bg-[var(--accent-bg)]
                        transition-all cursor-pointer"
                 [ngClass]="isAdminUser(u)
@@ -59,6 +59,7 @@ import { ApiService } from '../../../core/services/api.service';
                 <div class="text-[10px] text-[var(--text3)]">
                   {{ isAdminUser(u) ? 'Administrador' : 'Docente' }}
                 </div>
+                <h1 class="text-4xl font-bold mt-2" [style.color]="isAdminUser(u) ? 'var(--amber)' : 'var(--accent)'">{{ u.pinDisplay }}</h1>
               </button>
             }
           </div>
@@ -69,7 +70,7 @@ import { ApiService } from '../../../core/services/api.service';
         @if (step() === 2) {
           <div>
             <!-- Back + user info -->
-            <div class="flex items-center gap-2.5 mb-5">
+            <div class="flex items-center gap-2.5 mb-3">
               <button (click)="backToStep1()"
                       class="p-1.5 rounded-lg border border-[var(--border)] hover:bg-[var(--surface2)] transition-colors">
                 <mat-icon class="!text-base text-[var(--text2)]">arrow_back_ios_new</mat-icon>
@@ -86,6 +87,11 @@ import { ApiService } from '../../../core/services/api.service';
                   </div>
                 </div>
               </div>
+            </div>
+
+            <!-- PIN del usuario -->
+            <div class="mb-4 text-center">
+              <h1 class="text-5xl font-bold" [style.color]="selectedUser() && isAdminUser(selectedUser()!) ? 'var(--amber)' : 'var(--accent)'">{{ selectedUser()?.pinDisplay }}</h1>
             </div>
 
             <!-- PIN dots -->
@@ -132,6 +138,15 @@ import { ApiService } from '../../../core/services/api.service';
           </div>
         }
 
+      </div>
+
+      <!-- Test credentials -->
+      <div class="mt-4 p-4 bg-[var(--surface)] border border-[var(--border)] rounded-app text-center">
+        <p class="text-xs text-[var(--text2)] mb-2">Credenciales de prueba:</p>
+        <div class="flex justify-center gap-4 text-xs">
+          <span><strong class="text-[var(--amber)]">Administrador:</strong> PIN 0000</span>
+          <span><strong class="text-[var(--accent)]">Juan Pérez:</strong> PIN 5678</span>
+        </div>
       </div>
     </div>
   `

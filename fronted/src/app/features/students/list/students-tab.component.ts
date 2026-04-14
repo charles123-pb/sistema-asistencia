@@ -215,7 +215,7 @@ export class StudentsTabComponent {
           this.snack.open('Estudiante actualizado', '', { duration: 2000 });
           this.cancelForm();
         },
-        error: (e) => this.snack.open(e?.message || 'Error al actualizar', '', { duration: 3000 })
+        error: (e: any) => this.snack.open(e?.message || 'Error al actualizar', '', { duration: 3000 })
       });
     } else {
       this.api.addStudent(this.course.id, student).subscribe({
@@ -224,7 +224,7 @@ export class StudentsTabComponent {
           this.snack.open('Estudiante agregado', '', { duration: 2000 });
           this.cancelForm();
         },
-        error: (e) => this.snack.open(e?.message || 'Error al agregar', '', { duration: 3000 })
+        error: (e: any) => this.snack.open(e?.message || 'Error al agregar', '', { duration: 3000 })
       });
     }
   }
